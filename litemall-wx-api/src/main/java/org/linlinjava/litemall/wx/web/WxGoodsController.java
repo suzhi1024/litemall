@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.mysql.jdbc.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.linlinjava.litemall.core.system.SystemConfig;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.core.validator.Order;
 import org.linlinjava.litemall.core.validator.Sort;
@@ -127,6 +128,7 @@ public class WxGoodsController {
 				c.put("id", comment.getId());
 				c.put("addTime", comment.getAddTime());
 				c.put("content", comment.getContent());
+				c.put("adminContent", comment.getAdminContent());
 				LitemallUser user = userService.findById(comment.getUserId());
 				c.put("nickname", user == null ? "" : user.getNickname());
 				c.put("avatar", user == null ? "" : user.getAvatar());
@@ -185,6 +187,9 @@ public class WxGoodsController {
 			data.put("attribute", goodsAttributeListTask.get());
 			data.put("brand", brandCallableTask.get());
 			data.put("groupon", grouponRulesCallableTask.get());
+			//SystemConfig.isAutoCreateShareImage()
+			data.put("share", SystemConfig.isAutoCreateShareImage());
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
